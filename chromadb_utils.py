@@ -41,8 +41,31 @@ def store_text_as_document(text, collection_name="documents", metadata=None):
     
     return doc_id
 
+# write a function to search for a text and return matching documents
+def search_document_by_text(text, collection_name="documents"):
+    """
+    Searches for documents in ChromaDB by their content.
+    Args:
+        text (str): The text content to search for.
+        collection_name (str): Name of the collection to search in.
+    Returns:
+        list: A list of matching document metadata.
+    """
+    # Create a ChromaDB client
+    client = chromadb.Client()
+
+    # Get the collection
+    collection = client.get_collection(name=collection_name)
+
+    # Search for documents by content
+    results = collection.query(documents=[text])
+    return results
+
 
 # sample usage
 if __name__ == "__main__":
     doc_id = store_text_as_document("Hello, world!")
     print(f"Stored document with ID: {doc_id}")
+    results = search_document_by_text("Hello, world!")
+    print(f"Search results: {results}")
+    
