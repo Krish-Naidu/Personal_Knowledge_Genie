@@ -1,0 +1,47 @@
+# Core Streamlit and ChromaDB dependencies
+streamlit==1.48.1
+chromadb==1.0.20
+
+# Data processing and manipulation
+pandas==2.3.1
+numpy==2.3.2
+
+# Image processing (PIL/Pillow) - used in file upload demos
+pillow==11.3.0
+
+# PDF processing - used in read_pdf_demo, file_upload_demo, multi_file_upload
+PyPDF2==3.0.1
+
+# AI/ML libraries - used in pydanticai_demo, chatGPT_clone, embedding_demo
+pydantic-ai==0.7.4
+pydantic-ai-slim==0.7.4
+google-generativeai==0.8.5
+
+# HTTP requests and web utilities
+requests==2.32.5
+httpx==0.28.1
+
+# Additional utility packages
+python-dotenv==1.1.1
+beautifulsoup4==4.13.4
+
+# AI/ML related packages (for embeddings and tokenization)
+huggingface-hub==0.34.4
+tokenizers==0.21.4
+
+# Development and testing utilities
+tqdm==4.67.1
+click==8.2.1
+
+# Data visualization (used by Streamlit)
+altair==5.5.0
+
+# File handling and utilities
+filelock==3.19.1
+packaging==25.0
+
+# Optional: Additional AI integration packages (uncomment if needed)
+# openai==1.100.2
+# anthropic==0.64.0
+# cohere==5.17.0
+# groq==0.31.0
