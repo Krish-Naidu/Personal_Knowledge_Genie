@@ -51,14 +51,18 @@ def search_document_by_text(text, collection_name="documents"):
     Returns:
         list: A list of matching document metadata.
     """
-    # Create a ChromaDB client
-    client = chromadb.Client()
+    # Create vectordb directory if it doesn't exist
+    vectordb_path = os.path.join(os.path.dirname(__file__), "vectordb")
+    os.makedirs(vectordb_path, exist_ok=True)
+    
+    # Create a persistent ChromaDB client
+    client = chromadb.PersistentClient(path=vectordb_path)
 
     # Get the collection
     collection = client.get_collection(name=collection_name)
 
     # Search for documents by content
-    results = collection.query(documents=[text])
+    results = collection.query(query_texts=[text])
     return results
 
 
@@ -66,6 +70,5 @@ def search_document_by_text(text, collection_name="documents"):
 if __name__ == "__main__":
     doc_id = store_text_as_document("Hello, world!")
     print(f"Stored document with ID: {doc_id}")
-    results = search_document_by_text("Hello, world!")
+    results = search_document_by_text("Hello!")
     print(f"Search results: {results}")
-    
