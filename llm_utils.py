@@ -49,3 +49,8 @@ def get_api_key():
 # Initialize the agent
 set_api_key("AIzaSyAT-xzR1hSHM4IG5HUlVRk8wgRYXJFUCR8")  # Replace with your actual API key or set the environment variable
 agent = init_LLM()
+
+# sample usage
+if __name__ == "__main__":
+    response = get_agent_response("What is the capital of France?")
+    print(response)

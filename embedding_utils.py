@@ -20,6 +20,7 @@ def get_text_embedding(text):
     return result['embedding']
 
 # # sample usage
-# text = "Hello, world!"
-# embedding = get_text_embedding(text)
-# print(embedding)
+if __name__ == "__main__":
+    text = "Hello, world!"
+    embedding = get_text_embedding(text)
+    print(embedding)
