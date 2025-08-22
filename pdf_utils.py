@@ -16,7 +16,8 @@ def extract_text_from_pdf(file_path):
 	return text
 
 
-# call the above function
-print(extract_text_from_pdf("./docs/sample.pdf"))
+if __name__ == "__main__":
+    # call the above function
+    print(extract_text_from_pdf("./docs/sample.pdf"))
 
 
