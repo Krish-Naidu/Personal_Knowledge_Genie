@@ -10,6 +10,7 @@ def get_text_embedding(text):
     Returns:
         list: The embedding vector for the text.
     """
+    genai.configure(api_key=llm_utils.get_api_key())
     # Generate embedding using the correct method
     result = genai.embed_content(
         model="models/embedding-001",
@@ -18,4 +19,7 @@ def get_text_embedding(text):
     )
     return result['embedding']
 
-
+# # sample usage
+# text = "Hello, world!"
+# embedding = get_text_embedding(text)
+# print(embedding)
