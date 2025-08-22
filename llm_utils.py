@@ -2,10 +2,12 @@ from pydantic_ai import Agent
 # Import os to access environment variables for API key
 import os
 
+
 # Set up the Google API key for Gemini model
 # You can set this as an environment variable: GOOGLE_API_KEY
 # Or replace "your-google-api-key-here" with your actual API key
 def init_LLM():
+    set_api_key("AIzaSyAT-xzR1hSHM4IG5HUlVRk8wgRYXJFUCR8") 
     api_key = os.environ.get('GOOGLE_API_KEY')
     if not api_key:
         raise EnvironmentError("GOOGLE_API_KEY environment variable not set.")
@@ -18,7 +20,7 @@ def init_LLM():
     return agent
 
 
-def get_agent_response(input_text):
+def get_agent_response(agent, input_text):
     """
     Takes a string input and returns the response from the agent's run_sync method.
     Args:
@@ -45,12 +47,11 @@ def get_api_key():
     """
     return os.environ.get('GOOGLE_API_KEY')
 
+ # Replace with your actual API key or set the environment variable
 
-# Initialize the agent
-set_api_key("AIzaSyAT-xzR1hSHM4IG5HUlVRk8wgRYXJFUCR8")  # Replace with your actual API key or set the environment variable
-agent = init_LLM()
 
 # sample usage
 if __name__ == "__main__":
-    response = get_agent_response("What is the capital of France?")
+    agent = init_LLM()
+    response = get_agent_response(agent, "What is the capital of France?")
     print(response)
