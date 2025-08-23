@@ -1,13 +1,15 @@
 from pydantic_ai import Agent
 # Import os to access environment variables for API key
 import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 # Set up the Google API key for Gemini model
 # You can set this as an environment variable: GOOGLE_API_KEY
 # Or replace "your-google-api-key-here" with your actual API key
 def init_LLM():
-    set_api_key("AIzaSyAT-xzR1hSHM4IG5HUlVRk8wgRYXJFUCR8") 
     api_key = os.environ.get('GOOGLE_API_KEY')
     if not api_key:
         raise EnvironmentError("GOOGLE_API_KEY environment variable not set.")
