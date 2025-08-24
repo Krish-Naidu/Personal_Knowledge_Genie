@@ -75,12 +75,7 @@ def main():
         if "messages" not in st.session_state:
             st.session_state.messages = []
         
-        # Display chat messages
-        chat_container = st.container()
-        with chat_container:
-            for message in st.session_state.messages:
-                with st.chat_message(message["role"]):
-                    st.markdown(message["content"])
+
         
         # Chat input
         if prompt := st.chat_input("Ask me anything about your documents..."):
@@ -116,16 +111,27 @@ def main():
                         # Get response from LLM
                         response = llm_utils.get_agent_response(agent, full_prompt)
                         
-                        st.markdown(response)
+                        st.markdown(response.output)
                         
                         # Add assistant response to chat history
-                        st.session_state.messages.append({"role": "assistant", "content": response})
+                        st.session_state.messages.append({"role": "assistant", "content": response.output})
                         
                     except Exception as e:
                         error_msg = f"Sorry, I encountered an error: {str(e)}"
                         st.error(error_msg)
                         st.session_state.messages.append({"role": "assistant", "content": error_msg})
         
+                # Display chat messages
+        
+        
+        # Show chat history
+        chat_container = st.container()
+        with chat_container:
+            st.markdown("### Chat History  ###")
+            for message in st.session_state.messages:
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
+
         # Clear chat button
         if st.button("🗑️ Clear Chat"):
             st.session_state.messages = []

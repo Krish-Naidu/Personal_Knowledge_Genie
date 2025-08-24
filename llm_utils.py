@@ -17,7 +17,7 @@ def init_LLM():
     # Create an AI agent instance with specific configuration
     agent = Agent(
         'google-gla:gemini-2.5-flash-lite',
-        system_prompt='Be concise, reply with one sentence.',
+        system_prompt='Be concise and informative.',
     )
     return agent
 
