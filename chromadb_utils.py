@@ -6,7 +6,7 @@ from datetime import datetime
 
 def store_text_as_document(text, collection_name="documents", metadata=None):
     """
-    Stores text as a document in ChromaDB.
+    Stores text as a document in ChromaDB .
     Args:
         text (str): The text content to store.
         collection_name (str): Name of the collection to store the document in.
