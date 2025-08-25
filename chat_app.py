@@ -27,7 +27,7 @@ def main():
             "Upload your documents",
             type=['pdf', 'txt'],
             accept_multiple_files=True,
-            help="Upload PDF or text files to add to your knowledge base"
+            help="Upload PDF or text files to add to your knowledge base "
         )
         
         # show all the documents already in ChromaDB using chromadb_utils
