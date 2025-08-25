@@ -66,9 +66,49 @@ def search_document_by_text(text, collection_name="documents"):
     return results
 
 
+def get_all_document_filenames(collection_name="documents"):
+    """
+    Returns a list of all document filenames stored in the collection.
+    Args:
+        collection_name (str): Name of the collection to query.
+    Returns:
+        list: A list of filenames from all documents in the collection.
+    """
+    # Create vectordb directory if it doesn't exist
+    vectordb_path = os.path.join(os.path.dirname(__file__), "vectordb")
+    os.makedirs(vectordb_path, exist_ok=True)
+    
+    # Create a persistent ChromaDB client
+    client = chromadb.PersistentClient(path=vectordb_path)
+    
+    try:
+        # Get the collection
+        collection = client.get_collection(name=collection_name)
+        
+        # Get all documents with their metadata
+        all_docs = collection.get()
+        
+        # Extract filenames from metadata
+        filenames = []
+        for metadata in all_docs["metadatas"]:
+            if metadata and "filename" in metadata:
+                filename = metadata["filename"]
+                if filename not in filenames:  # Avoid duplicates
+                    filenames.append(filename)
+        
+        return filenames
+        
+    except Exception as e:
+        # Collection doesn't exist or other error
+        return []
+
+
+
 # sample usage
 if __name__ == "__main__":
     doc_id = store_text_as_document("Hello, world!")
     print(f"Stored document with ID: {doc_id}")
     results = search_document_by_text("Hello!")
     print(f"Search results: {results}")
+    filenames = get_all_document_filenames()
+    print(f"All document filenames: {filenames}")

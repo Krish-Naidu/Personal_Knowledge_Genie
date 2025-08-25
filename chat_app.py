@@ -2,7 +2,7 @@ import streamlit as st
 import os
 from llm_utils import init_LLM
 from pdf_utils import extract_text_from_pdf
-from chromadb_utils import store_text_as_document, search_document_by_text
+from chromadb_utils import store_text_as_document, search_document_by_text, get_all_document_filenames
 import llm_utils
 
 agent = init_LLM()
@@ -30,6 +30,13 @@ def main():
             help="Upload PDF or text files to add to your knowledge base"
         )
         
+        # show all the documents already in ChromaDB using chromadb_utils
+        filenames = get_all_document_filenames()
+        if filenames:
+            st.subheader("Documents in Knowledge Base:")
+            for filename in filenames:
+                st.write(f"• {filename}")
+
         if uploaded_files:
             st.subheader("Uploaded Files:")
             for file in uploaded_files:
