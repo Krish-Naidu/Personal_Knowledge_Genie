@@ -5,11 +5,16 @@ import llm_utils
 def get_text_embedding(text):
     """
     Takes a text input and returns its embedding using Google's embedding model.
+    
+    This function configures the Google Generative AI client with the API key
+    and generates embeddings suitable for document retrieval tasks.
+    
     Args:
         text (str): The text to embed.
     Returns:
         list: The embedding vector for the text.
     """
+    # Configure the Google Generative AI client with API key from environment
     genai.configure(api_key=llm_utils.get_api_key())
     # Generate embedding using the correct method
     result = genai.embed_content(
