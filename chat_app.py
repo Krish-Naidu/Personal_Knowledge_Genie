@@ -33,7 +33,7 @@ def main():
         # show all the documents already in ChromaDB using chromadb_utils
         filenames = get_all_document_filenames()
         if filenames:
-            st.subheader("Documents in Knowledge Base:")
+            st.subheader("Documents in Knowledge Base: ")
             for filename in filenames:
                 st.write(f"• {filename}")
 
