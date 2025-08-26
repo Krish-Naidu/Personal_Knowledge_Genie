@@ -103,7 +103,7 @@ def main():
                         # Prepare context from search results
                         context = ""
                         if search_results["documents"] and search_results["documents"][0]:
-                            context = "\n".join(search_results["documents"][0][:3])  # Top 3 resultss
+                            context = "\n".join(search_results["documents"][0][:3])  # Top 3 results
                         
                         # Create prompt with context
                         full_prompt = f"""
