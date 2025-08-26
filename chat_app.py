@@ -112,7 +112,7 @@ def main():
                         
                         User question: {prompt}
                         
-                        Please answer the question based on the context provided. If the context doesn't contain relevant information, say so.
+                        Please answer the question based on the context provided. If the context doesn't contain relevant information, say  so.
                         """
                         
                         # Get response from LLM
