@@ -32,6 +32,8 @@ tokenizers==0.21.4
 # Development and testing utilities
 tqdm==4.67.1
 click==8.2.1
+pytest==8.3.5
+reportlab==4.3.0
 
 # Data visualization (used by Streamlit)
 altair==5.5.0

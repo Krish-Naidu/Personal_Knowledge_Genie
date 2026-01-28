@@ -103,12 +103,97 @@ def get_all_document_filenames(collection_name="documents"):
         return []
 
 
+def delete_document_by_filename(filename, collection_name="documents"):
+    """
+    Delete all documents with a specific filename from ChromaDB.
+    Args:
+        filename (str): The filename to delete.
+        collection_name (str): Name of the collection to delete from.
+    Returns:
+        bool: True if documents were deleted, False otherwise.
+    """
+    # Create vectordb directory if it doesn't exist
+    vectordb_path = os.path.join(os.path.dirname(__file__), "vectordb")
+    os.makedirs(vectordb_path, exist_ok=True)
+    
+    # Create a persistent ChromaDB client
+    client = chromadb.PersistentClient(path=vectordb_path)
+    
+    try:
+        # Get the collection
+        collection = client.get_collection(name=collection_name)
+        
+        # Get all documents with matching filename
+        results = collection.get(
+            where={"filename": filename}
+        )
+        
+        if results['ids']:
+            # Delete all matching documents
+            collection.delete(ids=results['ids'])
+            return True
+        return False
+        
+    except Exception as e:
+        print(f"Error deleting documents: {e}")
+        return False
+
+
+def delete_all_documents(collection_name="documents"):
+    """
+    Delete all documents from the ChromaDB collection.
+    Args:
+        collection_name (str): Name of the collection to delete all documents from.
+    Returns:
+        dict: A dictionary containing:
+            - success (bool): True if deletion was successful
+            - deleted_count (int): Number of documents deleted
+            - error (str, optional): Error message if operation failed
+    """
+    # Create vectordb directory if it doesn't exist
+    vectordb_path = os.path.join(os.path.dirname(__file__), "vectordb")
+    os.makedirs(vectordb_path, exist_ok=True)
+    
+    # Create a persistent ChromaDB client
+    client = chromadb.PersistentClient(path=vectordb_path)
+    
+    try:
+        # Get the collection
+        collection = client.get_collection(name=collection_name)
+        
+        # Get all document IDs
+        all_docs = collection.get()
+        doc_ids = all_docs.get('ids', [])
+        
+        if doc_ids:
+            # Delete all documents
+            collection.delete(ids=doc_ids)
+            return {
+                "success": True,
+                "deleted_count": len(doc_ids)
+            }
+        else:
+            return {
+                "success": True,
+                "deleted_count": 0
+            }
+        
+    except Exception as e:
+        error_msg = f"Error deleting all documents: {e}"
+        print(error_msg)
+        return {
+            "success": False,
+            "deleted_count": 0,
+            "error": error_msg
+        }
+
 
 # sample usage
 if __name__ == "__main__":
-    doc_id = store_text_as_document("Hello, world!")
-    print(f"Stored document with ID: {doc_id}")
-    results = search_document_by_text("Hello!")
-    print(f"Search results: {results}")
-    filenames = get_all_document_filenames()
-    print(f"All document filenames: {filenames}")
+    delete_all_documents()
+    # doc_id = store_text_as_document("Hello, world!")
+    # print(f"Stored document with ID: {doc_id}")
+    # results = search_document_by_text("Hello!")
+    # print(f"Search results: {results}")
+    # filenames = get_all_document_filenames()
+    # print(f"All document filenames: {filenames}")

@@ -18,6 +18,6 @@ def extract_text_from_pdf(file_path):
 
 if __name__ == "__main__":
     # call the above function
-    print(extract_text_from_pdf("./docs/sample.pdf"))
+    print(extract_text_from_pdf("./docs/Personal_Knowledge_Genie.pdf"))
 
 
