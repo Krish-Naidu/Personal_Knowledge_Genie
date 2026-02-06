@@ -92,6 +92,19 @@ def main():
                     logger.info(f"Processing started for file: {file.name}")
                     with st.spinner(f"Processing {file.name}..."):
                         try:
+                            # Check for Excel files
+                            excel_mime_types = [
+                                "application/vnd.ms-excel",  # .xls
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",  # .xlsx
+                                "application/vnd.ms-excel.sheet.macroEnabled.12",  # .xlsm
+                                "application/vnd.ms-excel.sheet.binary.macroEnabled.12"  # .xlsb
+                            ]
+                            
+                            if file.type in excel_mime_types or file.name.lower().endswith(('.xls', '.xlsx', '.xlsm', '.xlsb')):
+                                logger.warning(f"Excel file upload attempted: {file.name} (type: {file.type})")
+                                st.error("❌ Excel file not accepted.")
+                                continue
+                            
                             if file.type == "application/pdf":
                                 logger.info(f"Processing PDF file: {file.name}")
                                 # Save the uploaded file temporarily
